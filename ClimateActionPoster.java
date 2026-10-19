@@ -1,173 +1,306 @@
 package climateactionposter;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class ClimateActionPoster extends JFrame {
 
+    private int points = 0;
+    private int trees = 0;
+
+    private JLabel pointsLabel;
+    private JLabel treesLabel;
+
+    private final Color darkGreen = new Color(15, 75, 55);
+    private final Color lightGreen = new Color(225, 247, 225);
+    private final Color skyBlue = new Color(190, 230, 250);
+
     public ClimateActionPoster() {
+
         setTitle("SDG 13 - Climate Action");
-        setSize(1050, 780);
+        setSize(900, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(245, 240, 230));
+        JPanel main = new JPanel(new BorderLayout(12, 12));
+        main.setBackground(lightGreen);
+        main.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
-        // TOP BANNER
-        JPanel topBanner = new JPanel(new BorderLayout());
-        topBanner.setBackground(new Color(19, 69, 53));
-        topBanner.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
-        JLabel title = new JLabel("SDG 13 CLIMATE ACTION", SwingConstants.CENTER);
-        title.setFont(new Font("Segoe UI Black", Font.BOLD, 38));
+        // HEADER
+        JPanel header = new JPanel(new GridLayout(3, 1, 4, 4));
+        header.setBackground(darkGreen);
+        header.setBorder(BorderFactory.createEmptyBorder(12, 10, 12, 10));
+
+        JLabel sdg = new JLabel(
+                "UNITED NATIONS  |  SUSTAINABLE DEVELOPMENT GOAL 13",
+                SwingConstants.CENTER);
+        sdg.setFont(new Font("Arial", Font.BOLD, 14));
+        sdg.setForeground(Color.YELLOW);
+
+        JLabel title = new JLabel(
+                "CLIMATE ACTION", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 36));
         title.setForeground(Color.WHITE);
-        JLabel subTitle = new JLabel("Take Urgent Action to Combat Climate Change", SwingConstants.CENTER);
-        subTitle.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        subTitle.setForeground(new Color(220, 220, 220));
-        subTitle.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
-        topBanner.add(title, BorderLayout.CENTER);
-        topBanner.add(subTitle, BorderLayout.SOUTH);
 
-        // CENTER TEXT
-        JPanel centerLabelPanel = new JPanel(new BorderLayout());
-        centerLabelPanel.setBackground(new Color(245, 240, 230));
-        centerLabelPanel.setBorder(BorderFactory.createEmptyBorder(25, 20, 15, 20));
-        JLabel goalText = new JLabel("<html><center>Goal 13: Strengthen resilience and adaptive capacity to<br>climate-related hazards and natural disasters</center></html>", SwingConstants.CENTER);
-        goalText.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        goalText.setForeground(new Color(19, 69, 53));
-        centerLabelPanel.add(goalText, BorderLayout.CENTER);
+        JLabel subtitle = new JLabel(
+                "PROTECT OUR PLANET • PROTECT OUR FUTURE",
+                SwingConstants.CENTER);
+        subtitle.setFont(new Font("Arial", Font.BOLD, 16));
+        subtitle.setForeground(new Color(190, 255, 210));
 
-        // 3 CARDS
-        JPanel cardsPanel = new JPanel(new GridLayout(1, 3, 25, 0));
-        cardsPanel.setBackground(new Color(245, 240, 230));
-        cardsPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 20, 30));
-        cardsPanel.add(createPremiumCard("Reduce\nEmissions", "Lower carbon footprint through sustainable energy, efficient transport, and low-emission practices.", 0));
-        cardsPanel.add(createPremiumCard("Plant Trees", "Restore forests and green spaces to absorb CO2 and protect biodiversity.", 1));
-        cardsPanel.add(createPremiumCard("Recycle", "Promote circular economy by reusing materials and reducing waste.", 2));
+        header.add(sdg);
+        header.add(title);
+        header.add(subtitle);
 
-        JPanel middleWrapper = new JPanel(new BorderLayout());
-        middleWrapper.setBackground(new Color(245, 240, 230));
-        middleWrapper.add(centerLabelPanel, BorderLayout.NORTH);
-        middleWrapper.add(cardsPanel, BorderLayout.CENTER);
+        // EARTH ILLUSTRATION
+        JPanel earthPanel = new JPanel(new BorderLayout(5, 5));
+        earthPanel.setBackground(skyBlue);
+        earthPanel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        // WHY IT MATTERS
-        JPanel whyPanel = new JPanel(new BorderLayout());
-        whyPanel.setBackground(new Color(245, 240, 230));
-        whyPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(1,0,0,0,new Color(200,200,200)),
-            BorderFactory.createEmptyBorder(20,30,20,30)
-        ));
-        JLabel whyTitle = new JLabel("Why It Matters:");
-        whyTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        whyTitle.setForeground(new Color(19, 69, 53));
-        JTextArea whyText = new JTextArea("Climate change impacts communities worldwide — increasing extreme weather, rising sea levels, and loss of ecosystems. Immediate action is critical to secure a sustainable future for all.");
-        whyText.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        whyText.setLineWrap(true);
-        whyText.setWrapStyleWord(true);
-        whyText.setEditable(false);
-        whyText.setOpaque(false);
-        whyPanel.add(whyTitle, BorderLayout.NORTH);
-        whyPanel.add(whyText, BorderLayout.CENTER);
+        JLabel earth = new JLabel(
+                "🌍  🌳  ☀️  🌱  🌎",
+                SwingConstants.CENTER);
+        earth.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 42));
 
-        // FOOTER
-        JPanel footer = new JPanel(new BorderLayout());
-        footer.setBackground(new Color(19, 69, 53));
-        footer.setBorder(BorderFactory.createEmptyBorder(15, 30, 15, 30));
-        JLabel leftFoot = new JLabel("United Nations Sustainable Development Goal 13");
-        leftFoot.setForeground(Color.WHITE);
-        leftFoot.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        JLabel rightFoot = new JLabel("Act Now • Measure • Reduce • Restore • Advocate");
-        rightFoot.setForeground(Color.WHITE);
-        rightFoot.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        footer.add(leftFoot, BorderLayout.WEST);
-        footer.add(rightFoot, BorderLayout.EAST);
+        JLabel slogan = new JLabel(
+                "SMALL ACTIONS. BIG IMPACT.",
+                SwingConstants.CENTER);
+        slogan.setFont(new Font("Arial", Font.BOLD, 23));
+        slogan.setForeground(darkGreen);
 
-        main.add(topBanner, BorderLayout.NORTH);
-        main.add(middleWrapper, BorderLayout.CENTER);
-        main.add(whyPanel, BorderLayout.SOUTH);
-        
-        JPanel root = new JPanel(new BorderLayout());
-        root.add(main, BorderLayout.CENTER);
-        root.add(footer, BorderLayout.SOUTH);
-        add(root);
+        JLabel description = new JLabel(
+                "Together, let's build a greener tomorrow!",
+                SwingConstants.CENTER);
+        description.setFont(new Font("Arial", Font.PLAIN, 16));
+        description.setForeground(new Color(35, 80, 100));
+
+        JPanel earthText = new JPanel(new GridLayout(2, 1, 3, 3));
+        earthText.setBackground(skyBlue);
+        earthText.add(slogan);
+        earthText.add(description);
+
+        earthPanel.add(earth, BorderLayout.CENTER);
+        earthPanel.add(earthText, BorderLayout.SOUTH);
+
+        // ACTION CARDS
+        JPanel cards = new JPanel(new GridLayout(2, 2, 12, 12));
+        cards.setBackground(lightGreen);
+
+        cards.add(createCard(
+                "🌳 PLANT MORE TREES",
+                "Grow green spaces.",
+                "Protect our forests.",
+                new Color(40, 145, 80)));
+
+        cards.add(createCard(
+                "⚡ SAVE ENERGY",
+                "Switch off unused lights.",
+                "Choose clean energy.",
+                new Color(40, 120, 200)));
+
+        cards.add(createCard(
+                "♻ REDUCE PLASTIC",
+                "Use reusable bags.",
+                "Recycle whenever possible.",
+                new Color(225, 130, 35)));
+
+        cards.add(createCard(
+                "💧 SAVE WATER",
+                "Avoid wasting water.",
+                "Keep rivers and lakes clean.",
+                new Color(20, 145, 160)));
+
+        // BUTTONS
+        JButton pledgeButton = createButton(
+                "💚 TAKE THE CLIMATE PLEDGE",
+                darkGreen);
+
+        JButton quizButton = createButton(
+                "🧠 PLAY CLIMATE QUIZ",
+                new Color(235, 170, 40));
+
+        JButton treeButton = createButton(
+                "🌱 PLANT A VIRTUAL TREE",
+                new Color(40, 140, 75));
+
+        JButton tipsButton = createButton(
+                "🌎 EXPLORE GREEN TIPS",
+                new Color(50, 115, 180));
+
+        pledgeButton.addActionListener(e -> takePledge());
+        quizButton.addActionListener(e -> playQuiz());
+        treeButton.addActionListener(e -> plantTree());
+        tipsButton.addActionListener(e -> showTips());
+
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setBackground(lightGreen);
+        buttonPanel.add(pledgeButton);
+        buttonPanel.add(quizButton);
+        buttonPanel.add(treeButton);
+        buttonPanel.add(tipsButton);
+
+        // SCORE PANEL
+        JPanel scorePanel = new JPanel(new GridLayout(1, 2, 10, 5));
+        scorePanel.setBackground(lightGreen);
+
+        pointsLabel = new JLabel(
+                "🏆 POINTS: 0", SwingConstants.CENTER);
+        pointsLabel.setFont(new Font("Arial", Font.BOLD, 17));
+        pointsLabel.setForeground(darkGreen);
+
+        treesLabel = new JLabel(
+                "🌳 TREES: 0", SwingConstants.CENTER);
+        treesLabel.setFont(new Font("Arial", Font.BOLD, 17));
+        treesLabel.setForeground(darkGreen);
+
+        scorePanel.add(pointsLabel);
+        scorePanel.add(treesLabel);
+
+        JPanel bottom = new JPanel(new BorderLayout(8, 8));
+        bottom.setBackground(lightGreen);
+        bottom.add(buttonPanel, BorderLayout.CENTER);
+        bottom.add(scorePanel, BorderLayout.SOUTH);
+
+        // LAYOUT
+        JPanel center = new JPanel(new BorderLayout(12, 12));
+        center.setBackground(lightGreen);
+        center.add(earthPanel, BorderLayout.NORTH);
+        center.add(cards, BorderLayout.CENTER);
+
+        main.add(header, BorderLayout.NORTH);
+        main.add(center, BorderLayout.CENTER);
+        main.add(bottom, BorderLayout.SOUTH);
+
+        setContentPane(main);
     }
 
-    private JPanel createPremiumCard(String title, String desc, int type) {
-        JPanel card = new JPanel(new BorderLayout(10,10)) {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D)g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(new Color(0,0,0,20));
-                g2.fillRoundRect(4, 4, getWidth()-8, getHeight()-8, 20, 20);
-                g2.setColor(Color.WHITE);
-                g2.fillRoundRect(0, 0, getWidth()-4, getHeight()-4, 20, 20);
-            }
-        };
-        card.setOpaque(false);
-        card.setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20));
+    private JPanel createCard(
+            String heading, String line1, String line2, Color color) {
 
-        // ICON - Drawn with shapes, no unicode
-        JPanel iconPanel = new JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D)g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(new Color(19, 69, 53));
-                g2.fillOval(10, 5, 100, 100);
-                g2.setColor(Color.WHITE);
-                g2.setStroke(new BasicStroke(3));
-                
-                if(type==0){ // CO2
-                    g2.setFont(new Font("Segoe UI", Font.BOLD, 20));
-                    g2.drawString("CO2", 35, 68);
-                    g2.drawLine(45, 35, 45, 50);
-                    g2.drawLine(35, 42, 45, 50);
-                    g2.drawLine(55, 42, 45, 50);
-                } else if(type==1){ // TREE
-                    g2.fillRect(56, 70, 8, 18);
-                    g2.fillOval(40, 30, 40, 35);
-                    g2.setColor(new Color(19, 69, 53));
-                    g2.fillOval(45, 35, 30, 25);
-                    g2.setColor(Color.WHITE);
-                    g2.fillOval(50, 40, 20, 15);
-                } else { // RECYCLE ARROWS
-                    g2.drawArc(35, 30, 50, 30, 0, 220);
-                    g2.drawLine(75, 40, 85, 45);
-                    g2.drawLine(75, 40, 70, 52);
-                    g2.drawArc(35, 35, 50, 50, 210, 220);
-                    g2.drawLine(45, 75, 35, 70);
-                    g2.drawLine(45, 75, 50, 63);
-                }
-            }
-        };
-        iconPanel.setPreferredSize(new Dimension(120, 120));
-        iconPanel.setOpaque(false);
+        JPanel card = new JPanel(new GridLayout(3, 1, 5, 5));
+        card.setBackground(Color.WHITE);
 
-        JLabel titleLabel = new JLabel("<html><center>" + title.replace("\n", "<br>") + "</center></html>", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        titleLabel.setForeground(new Color(19, 69, 53));
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(color, 3),
+                BorderFactory.createEmptyBorder(12, 8, 12, 8)));
 
-        JTextArea descArea = new JTextArea(desc);
-        descArea.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        descArea.setLineWrap(true);
-        descArea.setWrapStyleWord(true);
-        descArea.setEditable(false);
-        descArea.setOpaque(false);
-        descArea.setForeground(Color.DARK_GRAY);
+        JLabel title = new JLabel(heading, SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 17));
+        title.setForeground(color);
 
-        JPanel center = new JPanel(new BorderLayout());
-        center.setOpaque(false);
-        center.add(iconPanel, BorderLayout.NORTH);
-        center.add(titleLabel, BorderLayout.CENTER);
-        center.add(descArea, BorderLayout.SOUTH);
+        JLabel text1 = new JLabel(line1, SwingConstants.CENTER);
+        text1.setFont(new Font("Arial", Font.PLAIN, 15));
+        text1.setForeground(new Color(45, 65, 55));
 
-        card.add(center, BorderLayout.CENTER);
+        JLabel text2 = new JLabel(line2, SwingConstants.CENTER);
+        text2.setFont(new Font("Arial", Font.PLAIN, 15));
+        text2.setForeground(new Color(45, 65, 55));
+
+        card.add(title);
+        card.add(text1);
+        card.add(text2);
+
         return card;
     }
 
+    private JButton createButton(String text, Color color) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setPreferredSize(new Dimension(250, 48));
+        return button;
+    }
+
+    private void takePledge() {
+        int answer = JOptionPane.showConfirmDialog(
+                this,
+                "I pledge to protect nature, save energy,\n"
+                + "reduce waste and care for our planet.\n\n"
+                + "Do you accept the Climate Action Pledge?",
+                "Climate Action Pledge",
+                JOptionPane.YES_NO_OPTION);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            points += 10;
+            updateScore();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Thank you, Climate Hero! 🌍\n"
+                    + "You earned 10 points!",
+                    "Pledge Accepted",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void plantTree() {
+        trees++;
+        points += 5;
+        updateScore();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "🌳 Wonderful!\n"
+                + "Your virtual forest is growing!\n"
+                + "Trees planted: " + trees,
+                "Plant a Tree",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void playQuiz() {
+        String[] options = {
+            "Plant more trees",
+            "Waste electricity",
+            "Throw plastic into rivers"
+        };
+
+        int answer = JOptionPane.showOptionDialog(
+                this,
+                "Which action helps fight climate change?",
+                "Climate Quiz",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (answer == 0) {
+            points += 5;
+            updateScore();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Correct answer! 🌱\nYou earned 5 points!");
+        } else if (answer >= 0) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Not quite! Planting trees helps protect our planet.");
+        }
+    }
+
+    private void showTips() {
+        JOptionPane.showMessageDialog(
+                this,
+                "🌍 FIVE WAYS TO PROTECT OUR PLANET\n\n"
+                + "🌳 Plant and protect trees.\n"
+                + "⚡ Switch off unused lights.\n"
+                + "♻ Reduce, reuse and recycle.\n"
+                + "💧 Save water every day.\n"
+                + "🚲 Walk, cycle or use public transport.",
+                "Green Tips",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void updateScore() {
+        pointsLabel.setText("🏆 POINTS: " + points);
+        treesLabel.setText("🌳 TREES: " + trees);
+    }
+
     public static void main(String[] args) {
-        try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); } catch(Exception ignored){}
-        SwingUtilities.invokeLater(() -> new ClimateActionPoster().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            new ClimateActionPoster().setVisible(true);
+        });
     }
 }
